@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <p style="position: absolute; left: 50%; top: 40%; transform: translate(-50%); font-size: 20px; min-width: max-content;">Clique em qualquer lugar da tela para gerar uma cor</p>
+    <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%); font-size: 30px; font-weight: bold;" id="p" class="p"></div>
+    <button class="btn" data-clipboard-action="copy" data-clipboard-target="#p" style="position: absolute; left: 62%; top: 51%; transform: translate(-50%);">Copiar cor</button>
+    <button style="position: absolute; left: 50%; top: 60%; transform: translate(-50%, -50%);" class="reset" type="reset">Resetar</button>
+</body>
+<script>
+    new ClipboardJS('.btn');
+
+    var num = Math.floor(Math.random() * 1000000)
+    if(num < 99999) {
+        console.log('aaa')
+        num = Math.floor(Math.random() * 1000000)
+    }
+    $('html').click(function(){ 
+        $('body').css('background-color', '#'+num)
+        $('.p').text(`#${num}`)
+    })
+    $('.reset').click(function(e) {
+        num = Math.floor(Math.random() * 1000000)
+        $('.p').text('')
+        $('body').css('background-color', '#fff')
+        e.stopPropagation()
+    })
+</script>
+</html>
