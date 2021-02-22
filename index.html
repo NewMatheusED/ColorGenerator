@@ -10,27 +10,47 @@
 </head>
 <body>
     <p style="position: absolute; left: 50%; top: 40%; transform: translate(-50%); font-size: 20px; min-width: max-content;">Clique em qualquer lugar da tela para gerar uma cor</p>
-    <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%); font-size: 30px; font-weight: bold;" id="p" class="p"></div>
-    <button class="btn" data-clipboard-action="copy" data-clipboard-target="#p" style="position: absolute; left: 62%; top: 51%; transform: translate(-50%);">Copiar cor</button>
-    <button style="position: absolute; left: 50%; top: 60%; transform: translate(-50%, -50%);" class="reset" type="reset">Resetar</button>
+    <div style="position: absolute; left: 47%; top: 50%; transform: translate(-50%); font-size: 30px; font-weight: bold;" id="p" class="p">rgb(0,0,0)</div>
+    <div style="position: absolute; left: 47%; top: 57%; transform: translate(-50%); font-size: 30px; font-weight: bold;" id="pHex" class="pHex">#000000</div>
+    <button class="btn" data-clipboard-action="copy" data-clipboard-target="#p" style="position: absolute; left: 62%; top: 51%; transform: translate(-50%);">Copiar cor RGB</button>
+    <button class="btn" data-clipboard-action="copy" data-clipboard-target="#pHex" style="position: absolute; left: 62%; top: 57%; transform: translate(-50%);">Copiar cor HEX</button>
+    <button style="position: absolute; left: 47%; top: 67%; transform: translate(-50%, -50%);" class="reset" type="reset">Resetar</button>
 </body>
 <script>
     new ClipboardJS('.btn');
 
-    var num = Math.floor(Math.random() * 1000000)
-    if(num < 99999) {
-        console.log('aaa')
-        num = Math.floor(Math.random() * 1000000)
-    }
+    var num1 = Math.floor(Math.random() * 255)
+    var num2 = Math.floor(Math.random() * 255)
+    var num3 = Math.floor(Math.random() * 255)
+
     $('html').click(function(){ 
-        $('body').css('background-color', '#'+num)
-        $('.p').text(`#${num}`)
+        $('body').css('background-color', `rgb(${num1},${num2},${num3})`)
+        $('.p').text(`rgb(${num1},${num2},${num3})`)
+        convertRGBtoHEX()
     })
     $('.reset').click(function(e) {
-        num = Math.floor(Math.random() * 1000000)
-        $('.p').text('')
+        num1 = Math.floor(Math.random() * 255)
+        num2 = Math.floor(Math.random() * 255)
+        num3 = Math.floor(Math.random() * 255)
+        $('.p').text('rgb(0,0,0)')
+        $('#pHex').text('#000000')
         $('body').css('background-color', '#fff')
         e.stopPropagation()
     })
+
+      function rgb2hex(r, g, b) {
+        var rHex = parseInt(r).toString(16).padStart(2, '0');
+        var gHex = parseInt(g).toString(16).padStart(2, '0');
+        var bHex = parseInt(b).toString(16).padStart(2, '0');
+            return '#' + rHex + gHex + bHex
+    }
+ 
+      function convertRGBtoHEX() {
+        var input1 = num1;
+        var input2 = num2;
+        var input3 = num3;
+          var output = rgb2hex(input1, input2, input3);
+          $('#pHex').text(output);
+      }
 </script>
 </html>
